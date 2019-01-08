@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<style>
+		body {
+			background-color: #444;
+		}
+		.box {
+			position: absolute;
+			left: 50%;
+			top: 50px;
+			-webkit-transform: translateX(-50%);
+			transform: translateX(-50%);
+			width: 300px;
+			height: 300px;
+		}
+		svg {
+			width: 100%;
+		}
+		svg circle {
+			-webkit-transform-origin: center;
+			transform-origin: center;
+		}
+		svg path {
+			-webkit-transition: .8s;
+			transition: .8s;
+		}
+		@keyframes animeShowCircle {
+		  from {
+		    -webkit-transform: scale(0, 0);
+		    transform: scale(0, 0);
+		  }
+
+		  30% {
+		    -webkit-transform: scale(1.25, 0.75);
+		    transform: scale(1.25, 0.75);
+		  }
+
+		  40% {
+		    -webkit-transform: scale(0.75, 1.25);
+		    transform: scale(0.75, 1.25);
+		  }
+
+		  50% {
+		    -webkit-transform: scale(1.15, 0.85);
+		    transform: scale(1.15, 0.85);
+		  }
+
+		  65% {
+		    -webkit-transform: scale(0.95, 1.05);
+		    transform: scale(0.95, 1.05);
+		  }
+
+		  75% {
+		    -webkit-transform: scale(1.05, 0.95);
+		    transform: scale(1.05, 0.95);
+		  }
+
+		  to {
+		    -webkit-transform: scale(1, 1);
+		    transform: scale(1, 1);
+		  }
+		}
+		@keyframes animeHideCircle {
+		  to {
+		    -webkit-transform: scale(0, 0);
+		    transform: scale(0, 0);
+		  }
+		}
+		.showCircle {
+			animation-name: animeShowCircle;
+			animation-duration: 1s;
+			animation-fill-mode: forwards;
+			-webkit-animation-name: animeShowCircle;
+			-webkit-animation-duration: 1s;
+			-webkit-animation-fill-mode: forwards;
+		}
+		.hideCircle {
+			animation-name: animeHideCircle;
+			animation-duration: .6s;
+			animation-fill-mode: forwards;
+			-webkit-animation-name: animeHideCircle;
+			-webkit-animation-duration: .6s;
+			-webkit-animation-fill-mode: forwards;
+		}
+		.closed {
+			-webkit-transform: scale(0, 0);
+		    transform: scale(0, 0);
+		}
+	</style>
+</head>
+<body>
+	
+
+	<center>
+		<button onclick="closeSvg();">Close</button>
+		<button onclick="openSvg();">Open</button>
+	</center>
+	<div class="box">
+		<svg viewBox="0 0 125 125">
+		  <circle class="closed" cx="62.5" cy="62.5" r="50" fill="#ffffff" />
+		  <path d="M43 57 L58 72 L73 57 L88 42" stroke="#6AC259" stroke-width="7" fill="none" />
+		</svg>
+	</div>
+	<script type="text/javascript">
+		var p = document.querySelector('svg path');
+		p.style.strokeDasharray = '0, ' + p.getTotalLength();
+		
+		function openSvg() {
+			document.querySelector('svg circle').setAttribute('class', 'showCircle');
+			p.style.strokeDasharray = p.getTotalLength() + ', 0';
+		}
+		function closeSvg() {
+			document.querySelector('svg circle').setAttribute('class', 'hideCircle');
+			p.style.strokeDasharray = '0, ' + p.getTotalLength();
+		}
+	</script>
+</body>
+</html>
